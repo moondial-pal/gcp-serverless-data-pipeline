@@ -1,0 +1,30 @@
+# Python
+venv/
+.env
+__pycache__/
+*.pyc
+
+# UV
+.venv/
+uv.lock
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Cloud/Deploy
+.gcloudignore
+*.log
+
+# IDE
+.idea/
+
+# OS
+.DS_Store
+
+# Secrets (if any)
+*.json
+*.p12
+
+
