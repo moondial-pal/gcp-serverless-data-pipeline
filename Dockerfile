@@ -1,33 +1,29 @@
-# 🐍 Minimal base image
 FROM python:3.11-slim
 
-# 🛠️ Install system dependencies only once (for caching)
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# 📦 Install UV globally
-RUN pip install uv
-
-# 📁 Set working directory
+# Set working directory
 WORKDIR /app
 
-# 📦 Copy dependency files first (for layer caching)
-COPY pyproject.toml uv.lock ./
+# Copy dependency files
+COPY src/requirements.txt .
 
-# 🏗️ Install Python dependencies
-RUN uv pip install --system
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# 📁 Copy app source code
+# Copy app code
 COPY src/ .
 
-# 👤 Use non-root user for security
+# Non-root user
 RUN adduser --disabled-password appuser && chown -R appuser /app
 USER appuser
 
-# 🔥 Expose FastAPI port
+# Expose FastAPI port
 EXPOSE 8080
 
-# 🚀 Start FastAPI app with Uvicorn
+# Start FastAPI app
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
 
