@@ -1,0 +1,106 @@
+# 🚀 GCP Serverless Data Pipeline – Project Checklist
+
+## 📦 Containerization (Done ✅)
+- [x] Create Dockerfile for FastAPI app
+- [x] Install project dependencies (pip-only in Docker)
+- [x] Build Docker image locally: `docker build -t gcp-data-pipeline .`
+- [ ] Run container locally and test API: `docker run -p 8080:8080 gcp-data-pipeline`
+- [ ] Verify FastAPI is live at `http://localhost:8080/docs`
+
+---
+
+## ☁️ Terraform – Provision GCP Infrastructure
+- [ ] Set up Terraform project directory (`infra/` or `terraform/`)
+- [ ] Create `main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`
+- [ ] Define resources:
+    - Artifact Registry (for container images)
+    - Cloud Run service
+    - GCS bucket for raw CSV uploads
+    - BigQuery dataset & table
+    - IAM roles and service accounts
+- [ ] Configure GCS backend for Terraform state
+- [ ] Run `terraform init`
+- [ ] Run `terraform plan`
+- [ ] Run `terraform apply`
+
+---
+
+## 🐍 FastAPI Application Development
+- [ ] Design API endpoints:
+    - `GET /` – health check
+    - `POST /process` – trigger CSV processing
+- [ ] Implement `pipeline.py`:
+    - Download CSV from GCS
+    - Process/transform data with Pandas
+    - Load transformed data into BigQuery
+- [ ] Implement `utils.py`:
+    - Helper: download from GCS
+    - Helper: upload to BigQuery
+    - Logging utilities
+- [ ] Add proper error handling & logging
+- [ ] Write unit tests for pipeline logic (optional)
+
+---
+
+## 🚀 Deploy to GCP
+- [ ] Push Docker image to Artifact Registry:
+    ```bash
+    gcloud builds submit --tag REGION-docker.pkg.dev/PROJECT_ID/REPO/gcp-data-pipeline
+    ```
+- [ ] Deploy Cloud Run service:
+    ```bash
+    gcloud run deploy gcp-data-pipeline \
+      --image REGION-docker.pkg.dev/PROJECT_ID/REPO/gcp-data-pipeline \
+      --platform managed \
+      --region REGION \
+      --allow-unauthenticated
+    ```
+- [ ] Test API endpoint in Cloud Run:
+    - Open Cloud Run URL in browser
+    - Verify `/docs` and API health
+
+---
+
+## 🔄 Automation (CI/CD)
+- [ ] Set up Cloud Build trigger:
+    - Trigger on `main` branch push
+    - Build Docker image
+    - Push to Artifact Registry
+    - Deploy to Cloud Run
+- [ ] Test CI/CD flow with a commit
+
+---
+
+## 🔒 Security Best Practices
+- [ ] Use least privilege IAM roles
+- [ ] Enable Cloud Run ingress/egress control
+- [ ] Store secrets in Secret Manager
+- [ ] Configure Cloud Run to use service account
+
+---
+
+## 📑 Documentation
+- [ ] Update README.md:
+    - Architecture diagram
+    - Deployment instructions
+    - API usage guide
+    - Terraform usage guide
+- [ ] Create `RUNBOOK.md` for client ops team
+
+---
+
+## ✅ Final Testing
+- [ ] Upload sample CSV to GCS bucket
+- [ ] Trigger API and verify:
+    - Data processed correctly
+    - Data loaded to BigQuery
+    - Logs appear in Cloud Logging
+- [ ] Clean up unused resources
+
+---
+
+## 🎯 Stretch Goals
+- [ ] Add Pub/Sub trigger for auto-processing on GCS upload
+- [ ] Support multiple file formats (JSON, Parquet)
+- [ ] Add API authentication (e.g., API key or OAuth)
+
