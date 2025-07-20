@@ -16,7 +16,7 @@ WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
 # 🏗️ Install Python dependencies
-RUN uv pip install --system --deps production
+RUN uv pip install --system
 
 # 📁 Copy app source code
 COPY src/ .
