@@ -10,18 +10,66 @@
 ---
 
 ## ☁️ Terraform – Provision GCP Infrastructure
-- [x] Set up Terraform project directory (`infra/` or `terraform/`)
-- [x] Create `main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`
-- [ ] Define resources:
-    - Artifact Registry (for container images)
-    - Cloud Run service
-    - GCS bucket for raw CSV uploads
-    - BigQuery dataset & table
-    - IAM roles and service accounts
+
+- [x] Set up Terraform project directory (`infra/`)
+    - Create `infra/` in repo root
+    - Add base files: `main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`
+    - Create environment config: `infra/dev.tfvars`
+    - (Optional for multi-env) Scaffold `infra/staging.tfvars` and `infra/prod.tfvars`
+
+- [x] Configure `providers.tf`
+    - Define required Terraform and Google provider versions
+    - Parameterize GCS backend with:
+        - `tf_state_bucket`
+        - `tf_state_prefix`
+    - Reference `project_id` and `region` as variables
+
+- [x] Define `variables.tf`
+    - Add variables for:
+        - `project_id`
+        - `region`
+        - `tf_state_bucket`
+        - `tf_state_prefix`
+    - Remove any defaults for env-specific values
+
+- [ ] Create `dev.tfvars`
+    - Add actual values for:
+        - `project_id`
+        - `region`
+        - `tf_state_bucket`
+        - `tf_state_prefix`
+
+- [ ] Modularize resources (optional but recommended)
+    - Create `modules/` directory
+    - Create modules for:
+        - Artifact Registry
+        - Cloud Run
+        - GCS bucket
+        - BigQuery dataset & table
+        - IAM roles and service accounts
+
+- [ ] Define resources in `main.tf`
+    - Use modules or direct resource blocks
+    - Reference variables for all values (no hardcoding)
+
 - [ ] Configure GCS backend for Terraform state
-- [ ] Run `terraform init`
-- [ ] Run `terraform plan`
-- [ ] Run `terraform apply`
+    - Use `terraform init` with:
+        ```bash
+        terraform init \
+          -backend-config="bucket=my-tfstate-bucket-dev" \
+          -backend-config="prefix=dev/gcp-serverless-data-pipeline"
+        ```
+
+- [ ] Run Terraform commands
+    - Plan:  
+        ```bash
+        terraform plan -var-file=dev.tfvars
+        ```
+    - Apply:  
+        ```bash
+        terraform apply -var-file=dev.tfvars
+        ```
+
 
 ---
 
