@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from gcp_data_pipeline import pipeline
+from . import pipeline
 
 app = FastAPI(title="GCP Serverless Data Pipeline", version="0.1.0")
 
