@@ -10,8 +10,8 @@
 ---
 
 ## ☁️ Terraform – Provision GCP Infrastructure
-- [ ] Set up Terraform project directory (`infra/` or `terraform/`)
-- [ ] Create `main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`
+- [x] Set up Terraform project directory (`infra/` or `terraform/`)
+- [x] Create `main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`
 - [ ] Define resources:
     - Artifact Registry (for container images)
     - Cloud Run service
