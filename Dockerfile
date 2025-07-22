@@ -25,5 +25,5 @@ USER appuser
 EXPOSE 8080
 
 # Start FastAPI app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "gcp_data_pipeline.main:app", "--host", "0.0.0.0", "--port", "8080"]
 
