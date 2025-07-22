@@ -4,8 +4,8 @@
 - [x] Create Dockerfile for FastAPI app
 - [x] Install project dependencies (pip-only in Docker)
 - [x] Build Docker image locally: `docker build -t gcp-data-pipeline .`
-- [ ] Run container locally and test API: `docker run -p 8080:8080 gcp-data-pipeline`
-- [ ] Verify FastAPI is live at `http://localhost:8080/docs`
+- [x] Run container locally and test API: `docker run -p 8080:8080 gcp-data-pipeline`
+- [x] Verify FastAPI is live at `http://localhost:8080/docs`
 
 ---
 
