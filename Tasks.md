@@ -32,7 +32,7 @@
         - `tf_state_prefix`
     - Remove any defaults for env-specific values
 
-- [ ] Create `dev.tfvars`
+- [x] Create `dev.tfvars`
     - Add actual values for:
         - `project_id`
         - `region`
