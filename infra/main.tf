@@ -5,7 +5,7 @@ module "artifact_registry" {
   region     = var.region
   repo_name  = var.repo_name
 
-  depends_on = [moduel.enable_apis]
+  depends_on = [module.enable_apis]
 }
 
 module "enable_apis" {
