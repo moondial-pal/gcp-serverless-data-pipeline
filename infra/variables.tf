@@ -21,3 +21,8 @@ variable "tf_state_prefix" {
   description = "Path prefix inside GCS bucket for Terraform state"
   type        = string
 }
+
+variable "repo_name" {
+  type        = string
+  description = "The name of the Artifact Registry repository"
+}
