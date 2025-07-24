@@ -10,6 +10,5 @@ module "artifact_registry" {
 
 module "enable_apis" {
   source     = "./modules/apis"
-  project_id = var.project_id
 }
 
