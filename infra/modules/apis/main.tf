@@ -1,10 +1,17 @@
-resource "google_project_service" "artifact_registry" {
-  service            = "artifactregistry.googleapis.com"
-  disable_on_destroy = false
+variable "project_id" {
+  type        = string
+  description = "The project ID"
 }
 
-# Add more APIs here as needed, like:
-# - Cloud Run
-# - BigQuery
-# - Cloud Storage
-# - IAM
+variable "apis" {
+  type        = list(string)
+  description = "List of APIs to enable"
+}
+
+resource "google_project_service" "this" {
+  for_each = toset(var.apis)
+  project  = var.project_id
+  service  = each.key
+
+  disable_on_destroy = false
+}

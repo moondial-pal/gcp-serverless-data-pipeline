@@ -10,5 +10,14 @@ module "artifact_registry" {
 
 module "enable_apis" {
   source     = "./modules/apis"
+  project_id = var.project_id
+  apis = [
+    "cloudresourcemanager.googleapis.com", # Ensure this is listed
+    "artifactregistry.googleapis.com",
+    "run.googleapis.com",
+    "bigquery.googleapis.com",
+    "storage.googleapis.com"
+  ]
 }
+
 
