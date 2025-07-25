@@ -26,7 +26,6 @@ module "gcs_bucket" {
   source      = "./modules/gcs"
   project_id  = var.project_id
   region      = var.region
-  bucket_name = "gcs-data-pipeline-${var.environment}"
   environment = "dev"
 
   depends_on = [module.enable_apis]

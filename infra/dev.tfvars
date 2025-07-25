@@ -14,6 +14,5 @@ tf_state_prefix = "dev/gcp-serverless-data-pipeline"
 # Artifact Reg. container repo
 repo_name = "gcp-data-pipeline"
 
-# Google Cloud Storage bucket
-bucket_name = "gcs-data-pipeline-dev"
+
 

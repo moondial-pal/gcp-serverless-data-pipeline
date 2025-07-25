@@ -26,3 +26,14 @@ variable "repo_name" {
   type        = string
   description = "The name of the Artifact Registry repository"
 }
+
+# GCS Bucket - Data Pipeline
+variable "bucket_name" {
+  type        = string
+  description = "Name of the GCS bucket to create"
+}
+
+variable "environment" {
+  type        = string
+  description = "Deployment environment (e.g., dev, staging, prod)"
+}
