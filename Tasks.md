@@ -15,7 +15,7 @@
     - Create `infra/` in repo root
     - Add base files: `main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`
     - Create environment config: `infra/dev.tfvars`
-    - (Optional for multi-env) Scaffold `infra/staging.tfvars` and `infra/prod.tfvars`
+    - Scaffold `infra/staging.tfvars` and `infra/prod.tfvars`
 
 - [x] Configure `providers.tf`
     - Define required Terraform and Google provider versions
@@ -28,39 +28,40 @@
     - Add variables for:
         - `project_id`
         - `region`
+        - `repo_name`
         - `tf_state_bucket`
         - `tf_state_prefix`
-    - Remove any defaults for env-specific values
 
 - [x] Create `dev.tfvars`
     - Add actual values for:
         - `project_id`
         - `region`
+        - `repo_name`
         - `tf_state_bucket`
         - `tf_state_prefix`
 
-- [ ] Modularize resources (optional but recommended)
+- [ ] Modularize resources
     - Create `modules/` directory
     - Create modules for:
-        - Artifact Registry
-        - Cloud Run
-        - GCS bucket
-        - BigQuery dataset & table
-        - IAM roles and service accounts
+        - [x] Artifact Registry ✅
+        - [ ] Cloud Run
+        - [ ] GCS bucket
+        - [ ] BigQuery dataset & table
+        - [x] Enable GCP APIs ✅
 
-- [ ] Define resources in `main.tf`
-    - Use modules or direct resource blocks
-    - Reference variables for all values (no hardcoding)
+- [x] Define resources in `main.tf`
+    - Use modules
+    - Reference variables for all values
 
-- [ ] Configure GCS backend for Terraform state
-    - Use `terraform init` with:
+- [x] Configure GCS backend for Terraform state
+    - Initialize with:
         ```bash
         terraform init \
-          -backend-config="bucket=my-tfstate-bucket-dev" \
+          -backend-config="bucket=data-pipeline-tfstate-dev" \
           -backend-config="prefix=dev/gcp-serverless-data-pipeline"
         ```
 
-- [ ] Run Terraform commands
+- [x] Run Terraform commands
     - Plan:  
         ```bash
         terraform plan -var-file=dev.tfvars
@@ -70,21 +71,21 @@
         terraform apply -var-file=dev.tfvars
         ```
 
-
 ---
 
 ## 🐍 FastAPI Application Development
+- [x] Scaffold FastAPI structure (`main.py`, `pipeline.py`, `utils.py`)
 - [ ] Design API endpoints:
-    - `GET /` – health check
-    - `POST /process` – trigger CSV processing
+    - [ ] `GET /` – health check
+    - [ ] `POST /process` – trigger CSV processing
 - [ ] Implement `pipeline.py`:
-    - Download CSV from GCS
-    - Process/transform data with Pandas
-    - Load transformed data into BigQuery
+    - [ ] Download CSV from GCS
+    - [ ] Process/transform data with Pandas
+    - [ ] Load transformed data into BigQuery
 - [ ] Implement `utils.py`:
-    - Helper: download from GCS
-    - Helper: upload to BigQuery
-    - Logging utilities
+    - [ ] Helper: download from GCS
+    - [ ] Helper: upload to BigQuery
+    - [ ] Logging utilities
 - [ ] Add proper error handling & logging
 - [ ] Write unit tests for pipeline logic (optional)
 
@@ -93,14 +94,14 @@
 ## 🚀 Deploy to GCP
 - [ ] Push Docker image to Artifact Registry:
     ```bash
-    gcloud builds submit --tag REGION-docker.pkg.dev/PROJECT_ID/REPO/gcp-data-pipeline
+    gcloud builds submit --tag us-west1-docker.pkg.dev/PROJECT_ID/gcp-data-pipeline/gcp-data-pipeline
     ```
 - [ ] Deploy Cloud Run service:
     ```bash
     gcloud run deploy gcp-data-pipeline \
-      --image REGION-docker.pkg.dev/PROJECT_ID/REPO/gcp-data-pipeline \
+      --image us-west1-docker.pkg.dev/PROJECT_ID/gcp-data-pipeline/gcp-data-pipeline \
       --platform managed \
-      --region REGION \
+      --region us-west1 \
       --allow-unauthenticated
     ```
 - [ ] Test API endpoint in Cloud Run:
@@ -120,10 +121,11 @@
 ---
 
 ## 🔒 Security Best Practices
-- [ ] Use least privilege IAM roles
-- [ ] Enable Cloud Run ingress/egress control
-- [ ] Store secrets in Secret Manager
-- [ ] Configure Cloud Run to use service account
+- [x] Use least privilege IAM roles (Terraform SA with scoped roles)
+- [x] Enable Cloud APIs with Terraform
+- [ ] Store secrets in Secret Manager (auth key, config)
+- [ ] Configure Cloud Run to use custom service account
+- [ ] Enable ingress/egress control for Cloud Run
 
 ---
 
@@ -151,4 +153,3 @@
 - [ ] Add Pub/Sub trigger for auto-processing on GCS upload
 - [ ] Support multiple file formats (JSON, Parquet)
 - [ ] Add API authentication (e.g., API key or OAuth)
-
