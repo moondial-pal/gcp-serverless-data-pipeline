@@ -45,7 +45,7 @@
     - Create modules for:
         - [x] Artifact Registry ✅
         - [ ] Cloud Run
-        - [ ] GCS bucket
+        - [x] GCS bucket
         - [ ] BigQuery dataset & table
         - [x] Enable GCP APIs ✅
 
