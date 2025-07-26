@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "this" {
-  name     = "gcs-data-pipeline-${var.environment}"
+  name = var.bucket_name
   location = var.region
   project  = var.project_id
 

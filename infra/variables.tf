@@ -1,39 +1,34 @@
-# 🔥 Required GCP project ID
+variable "environment" {
+  description = "Deployment environment (e.g., dev, staging, prod)"
+  type        = string
+}
+
 variable "project_id" {
-  description = "GCP Project ID where resources will be created"
+  description = "GCP project ID"
   type        = string
 }
 
-# 🌎 Default region for GCP resources
 variable "region" {
-  description = "Default GCP region for resources"
+  description = "GCP region to deploy to"
   type        = string
 }
 
-# 🗄️ GCS bucket for storing Terraform state
 variable "tf_state_bucket" {
-  description = "Name of the GCS bucket to store Terraform state"
+  description = "GCS bucket for Terraform remote state"
   type        = string
 }
 
-# 📂 Prefix path within the GCS bucket
 variable "tf_state_prefix" {
-  description = "Path prefix inside GCS bucket for Terraform state"
+  description = "Path prefix for Terraform remote state"
   type        = string
 }
 
 variable "repo_name" {
+  description = "Artifact Registry repository name"
   type        = string
-  description = "The name of the Artifact Registry repository"
 }
 
-# GCS Bucket - Data Pipeline
 variable "bucket_name" {
+  description = "Name of the GCS bucket for data pipeline CSVs"
   type        = string
-  description = "Name of the GCS bucket to create"
-}
-
-variable "environment" {
-  type        = string
-  description = "Deployment environment (e.g., dev, staging, prod)"
 }

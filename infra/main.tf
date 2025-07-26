@@ -27,6 +27,19 @@ module "gcs_bucket" {
   project_id  = var.project_id
   region      = var.region
   environment = "dev"
+  bucket_name = "gcs-data-pipeline-${var.environment}"
+
+  depends_on = [module.enable_apis]
+}
+
+# Cloud Run
+module "cloud_run" {
+  source               = "./modules/cloud_run"
+  project_id           = var.project_id
+  region               = var.region
+  service_name         = "gcp-data-api"
+  image_url            = "gcr.io/cloudrun/hello"
+  service_account_email = "terraform@gcp-serverless-data-pipeline.iam.gserviceaccount.com"
 
   depends_on = [module.enable_apis]
 }

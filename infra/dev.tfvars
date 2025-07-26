@@ -1,18 +1,20 @@
 # 🌱 Development Environment Configuration
+
+# Unique identifier for this deployment
 environment = "dev"
 
- # GCP project ID
+# 🔐 GCP project
 project_id = "gcp-serverless-data-pipeline"
 
-# ✅ Green region (Oregon)
+# 🌍 Region (us-west1 = Oregon)
 region = "us-west1"
 
-# GCS bucket for Terraform state
+# ☁️ Terraform remote state config
 tf_state_bucket = "data-pipeline-tfstate-dev"
 tf_state_prefix = "dev/gcp-serverless-data-pipeline"
 
-# Artifact Reg. container repo
+# 📦 Artifact Registry repository
 repo_name = "gcp-data-pipeline"
 
-
-
+# 🪣 GCS bucket for CSV upload and processing
+bucket_name = "gcs-data-pipeline-dev"

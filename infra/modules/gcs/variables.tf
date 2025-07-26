@@ -13,3 +13,8 @@ variable "environment" {
   type        = string
   description = "Environment label (e.g., dev, staging, prod)"
 }
+
+variable "bucket_name" {
+  type        = string
+  description = "Name of the GCS bucket"
+}
