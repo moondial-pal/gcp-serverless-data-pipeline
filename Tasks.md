@@ -44,7 +44,7 @@
     - Create `modules/` directory
     - Create modules for:
         - [x] Artifact Registry ✅
-        - [ ] Cloud Run
+        - [x] Cloud Run
         - [x] GCS bucket
         - [ ] BigQuery dataset & table
         - [x] Enable GCP APIs ✅
