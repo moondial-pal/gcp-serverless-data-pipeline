@@ -79,6 +79,7 @@
     - [ ] `GET /` – health check
     - [ ] `POST /process` – trigger CSV processing
 - [ ] Implement `pipeline.py`:
+    - [ ] Accept filename/path from request
     - [ ] Download CSV from GCS
     - [ ] Process/transform data with Pandas
     - [ ] Load transformed data into BigQuery
