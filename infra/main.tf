@@ -43,3 +43,12 @@ module "cloud_run" {
 
   depends_on = [module.enable_apis]
 }
+
+module "bigquery" {
+  source      = "./modules/bigquery"
+  project_id  = var.project_id
+  environment = var.environment
+  region      = var.region
+
+  depends_on = [module.enable_apis]
+}
