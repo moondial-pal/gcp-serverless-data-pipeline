@@ -12,3 +12,8 @@ variable "environment" {
   description = "Environment name (used in dataset_id and labels)"
   type        = string
 }
+
+variable "service_account_email" {
+  description = "Terraform service account email (granted BigQuery Admin)"
+  type        = string
+}

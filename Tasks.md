@@ -46,7 +46,7 @@
         - [x] Artifact Registry ✅
         - [x] Cloud Run
         - [x] GCS bucket
-        - [ ] BigQuery dataset & table
+        - [x] BigQuery dataset & table
         - [x] Enable GCP APIs ✅
 
 - [x] Define resources in `main.tf`

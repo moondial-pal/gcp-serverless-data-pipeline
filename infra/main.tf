@@ -2,7 +2,7 @@
 module "enable_apis" {
   source     = "./modules/apis"
   project_id = var.project_id
-  apis = [
+  apis       = [
     "cloudresourcemanager.googleapis.com", # Ensure this is listed
     "artifactregistry.googleapis.com",
     "run.googleapis.com",
@@ -34,21 +34,22 @@ module "gcs_bucket" {
 
 # Cloud Run
 module "cloud_run" {
-  source               = "./modules/cloud_run"
-  project_id           = var.project_id
-  region               = var.region
-  service_name         = "gcp-data-api"
-  image_url            = "gcr.io/cloudrun/hello"
+  source                = "./modules/cloud_run"
+  project_id            = var.project_id
+  region                = var.region
+  service_name          = "gcp-data-api"
+  image_url             = "gcr.io/cloudrun/hello"
   service_account_email = "terraform@gcp-serverless-data-pipeline.iam.gserviceaccount.com"
 
   depends_on = [module.enable_apis]
 }
 
 module "bigquery" {
-  source      = "./modules/bigquery"
-  project_id  = var.project_id
-  environment = var.environment
-  region      = var.region
+  source                = "./modules/bigquery"
+  project_id            = var.project_id
+  environment           = var.environment
+  region                = var.region
+  service_account_email = "terraform@${var.project_id}.iam.gserviceaccount.com"
 
   depends_on = [module.enable_apis]
 }
