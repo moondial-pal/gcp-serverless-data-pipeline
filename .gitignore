@@ -24,6 +24,7 @@ uv.lock
 .DS_Store
 
 # Secrets (if any)
+.gcp/
 *.json
 *.p12
 
