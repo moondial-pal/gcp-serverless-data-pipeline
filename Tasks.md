@@ -40,7 +40,7 @@
         - `tf_state_bucket`
         - `tf_state_prefix`
 
-- [ ] Modularize resources
+- [x] Modularize resources
     - Create `modules/` directory
     - Create modules for:
         - [x] Artifact Registry ✅
