@@ -7,7 +7,8 @@ module "enable_apis" {
     "artifactregistry.googleapis.com",
     "run.googleapis.com",
     "bigquery.googleapis.com",
-    "storage.googleapis.com"
+    "storage.googleapis.com",
+    "cloudfunctions.googleapis.com"
   ]
 }
 
@@ -44,12 +45,31 @@ module "cloud_run" {
   depends_on = [module.enable_apis]
 }
 
+# BQ
 module "bigquery" {
   source                = "./modules/bigquery"
   project_id            = var.project_id
   environment           = var.environment
   region                = var.region
   service_account_email = "terraform@${var.project_id}.iam.gserviceaccount.com"
+
+  depends_on = [module.enable_apis]
+}
+
+# Cloud Functions
+module "cloud_function" {
+  source                = "../modules/cloud_function"
+  function_name         = "gcs-trigger-csv-handler"
+  entry_point           = "handle_gcs_event"
+  bucket_name           = module.gcs_bucket.bucket_name
+  source_dir            = "function_src"
+  region                = "us-west1"
+  project_id            = var.project_id
+  runtime               = "python310"
+  service_account_email = "terraform@${var.project_id}.iam.gserviceaccount.com"
+  env_vars              = {
+    CLOUD_RUN_URL = module.cloud_run.cloud_run_url
+  }
 
   depends_on = [module.enable_apis]
 }

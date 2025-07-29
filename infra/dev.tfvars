@@ -18,3 +18,11 @@ repo_name = "gcp-data-pipeline"
 
 # 🪣 GCS bucket for CSV upload and processing
 bucket_name = "gcs-data-pipeline-dev"
+
+# Cloud Functions
+cloud_function_name = "trigger-fastapi"
+cloud_function_entry_point = "trigger_pipeline"
+cloud_function_bucket = "gcs-data-pipeline-dev"     # Your bucket
+cloud_function_region = "us-west1"
+cloud_function_source_archive = "cloud-function.zip"
+
