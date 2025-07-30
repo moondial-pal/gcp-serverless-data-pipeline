@@ -1,46 +1,47 @@
-variable "function_name" {
-  description = "Name of the Cloud Function"
-  type        = string
-}
-
-variable "entry_point" {
-  description = "Name of the entry point function in source code"
-  type        = string
-}
-
-variable "bucket_name" {
-  description = "GCS bucket name for both source and trigger"
-  type        = string
-}
-
-variable "source_dir" {
-  description = "Path to the zipped function source code"
+variable "project_id" {
+  description = "The GCP project ID where the function will be deployed"
   type        = string
 }
 
 variable "region" {
-  description = "GCP region"
+  description = "The region to deploy the Cloud Function"
+  type        = string
+  default     = "us-west1"
+}
+
+variable "bucket_name" {
+  description = "The GCS bucket name containing the source code zip"
+  type        = string
+}
+
+variable "function_name" {
+  description = "The name of the Cloud Function"
   type        = string
 }
 
 variable "runtime" {
-  description = "Cloud Function runtime"
+  description = "The runtime to use (e.g. python312)"
   type        = string
-  default     = "python310"
+  default     = "python312"
+}
+
+variable "entry_point" {
+  description = "The entry point function in your source code (e.g. 'main')"
+  type        = string
+}
+
+variable "service_account_email" {
+  description = "The service account email used by the function"
+  type        = string
 }
 
 variable "env_vars" {
-  description = "Map of environment variables"
+  description = "Environment variables for the Cloud Function"
   type        = map(string)
   default     = {}
 }
 
-variable "service_account_email" {
-  description = "IAM service account email for the function"
-  type        = string
-}
-
-variable "project_id" {
-  description = "GCP project ID"
+variable "source_dir" {
+  description = "Path to the local function source code"
   type        = string
 }

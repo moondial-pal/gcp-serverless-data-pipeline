@@ -24,5 +24,6 @@ cloud_function_name = "trigger-fastapi"
 cloud_function_entry_point = "trigger_pipeline"
 cloud_function_bucket = "gcs-data-pipeline-dev"     # Your bucket
 cloud_function_region = "us-west1"
-cloud_function_source_archive = "cloud-function.zip"
+source_dir = "functions_src"
+
 

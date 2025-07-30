@@ -88,7 +88,7 @@ gcloud functions deploy process_csv \
   --runtime python310 \
   --trigger-bucket <your-ingestion-bucket> \
   --entry-point main \
-  --source cloud_function/
+  --source cloud_run_function/
 ```
 
 ## 📄 Documentation
