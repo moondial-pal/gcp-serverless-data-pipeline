@@ -1,26 +1,27 @@
-# Create a zip archive of the function source
+# === Package Function Code ===
+# Archive the source code in ./src (don't commit the zip to git)
 data "archive_file" "function_zip" {
   type        = "zip"
-  source_dir  = var.source_dir
-  output_path = "${path.module}/gcs-trigger-csv-handler.zip"
+  source_dir  = "${path.module}/src"     # keep your code in modules/cloud_function/src/
+  output_path = "${path.module}/function.zip"
 }
 
-# Upload the source to your GCS bucket
+# Upload to GCS with a unique name that changes if code changes
 resource "google_storage_bucket_object" "function_source" {
-  name   = "${var.function_name}.zip"
+  name   = "${var.function_name}/${data.archive_file.function_zip.output_md5}.zip"
   bucket = var.bucket_name
   source = data.archive_file.function_zip.output_path
 }
 
-# 2nd Gen Cloud Function
+# === 2nd Gen Cloud Function ===
 resource "google_cloudfunctions2_function" "this" {
   name        = var.function_name
   location    = var.region
   description = "Triggered when CSV files are uploaded to GCS"
 
   build_config {
-    runtime     = var.runtime             # e.g. "python312"
-    entry_point = var.entry_point         # e.g. "main"
+    runtime     = var.runtime       # e.g. "python312"
+    entry_point = var.entry_point   # e.g. "main"
     source {
       storage_source {
         bucket = var.bucket_name
@@ -30,8 +31,8 @@ resource "google_cloudfunctions2_function" "this" {
   }
 
   service_config {
-    available_memory   = "256Mi"
-    timeout_seconds    = 60
+    available_memory      = "256Mi"
+    timeout_seconds       = 60
     service_account_email = var.service_account_email
     environment_variables = var.env_vars
   }
@@ -51,11 +52,10 @@ resource "google_cloudfunctions2_function" "this" {
   }
 }
 
-# In 2nd Gen, Cloud Functions run on Cloud Run under the hood.
-# IAM is managed via google_cloud_run_service_iam_member.
+# === Cloud Run IAM Binding ===
 resource "google_cloud_run_service_iam_member" "invoker" {
   location = var.region
   service  = google_cloudfunctions2_function.this.name
   role     = "roles/run.invoker"
-  member   = "allUsers" # tighten later to only allow specific callers
+  member   = "allUsers" # TODO: restrict later
 }
