@@ -1,29 +1,26 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from gcp_data_pipeline import pipeline
 
-app = FastAPI(title="GCP Serverless Data Pipeline", version="0.1.0")
+# ✅ absolute import from our package
+from gcp_data_pipeline.pipeline import process_csv
 
+app = FastAPI(title="GCP Data Pipeline API")
 
-# Request payload schema
+# --- Health check ---
+@app.get("/")
+def health_check():
+    return {"status": "ok", "message": "Pipeline API is live"}
+
+# --- Request model ---
 class ProcessRequest(BaseModel):
     bucket: str
     filename: str
 
-
-@app.get("/")
-async def root():
-    """Health check endpoint"""
-    return {"message": "GCP Serverless Data Pipeline is alive!"}
-
-
+# --- Processing endpoint ---
 @app.post("/process")
-async def process_csv(request: ProcessRequest):
-    """
-    Trigger the ETL process for a given CSV file in GCS.
-    """
+def process_file(req: ProcessRequest):
     try:
-        result = await pipeline.process_csv(request.bucket, request.filename)
+        result = process_csv(req.bucket, req.filename)
         return {"status": "success", "details": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
