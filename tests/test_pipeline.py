@@ -80,3 +80,15 @@ def test_process_csv(monkeypatch):
     assert result["status"] == "success"
     assert result["rows_processed"] == 2
 
+
+def test_process_csv_with_subdirectory(monkeypatch):
+    """Files within nested folders are processed correctly."""
+
+    monkeypatch.setattr("gcp_data_pipeline.pipeline.download_from_gcs", _fake_download)
+    monkeypatch.setattr("gcp_data_pipeline.pipeline.upload_to_bigquery", _fake_upload)
+
+    result = process_csv("my-bucket", "incoming/data.csv")
+
+    assert result["status"] == "success"
+    assert result["rows_processed"] == 2
+
