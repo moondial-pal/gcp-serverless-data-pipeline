@@ -46,6 +46,7 @@ def process_csv(bucket: str, filename: str) -> Dict[str, str | int]:
     local_path = os.path.join("/tmp", filename)
     try:
         logger.info("Starting processing for gs://%s/%s", bucket, filename)
+        os.makedirs(os.path.dirname(local_path), exist_ok=True)
         download_from_gcs(bucket, filename, local_path)
 
         df = pd.read_csv(local_path)
