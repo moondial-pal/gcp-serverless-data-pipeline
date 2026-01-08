@@ -1,31 +1,54 @@
+# -------------------------
 # Python
+# -------------------------
 venv/
-.env
+.venv/
 __pycache__/
 *.pyc
 
+# -------------------------
+# Environment variables
+# -------------------------
+.env
+.env.*
+!.env.example
+
+# -------------------------
 # UV
-.venv/
+# -------------------------
 uv.lock
 
-# Terraform
-*.tfstate
-*.tfstate.backup
+# -------------------------
+# Terraform / OpenTofu
+# -------------------------
 .terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
 
-# Cloud/Deploy
+# -------------------------
+# Cloud / credentials
+# -------------------------
+.gcp/
+*service*account*.json
+application_default_credentials.json
+credentials*.json
+*.p12
+*.pem
+
+# -------------------------
+# Cloud / deploy artifacts
+# -------------------------
 .gcloudignore
 *.log
 
+# -------------------------
 # IDE
+# -------------------------
 .idea/
 
+# -------------------------
 # OS
+# -------------------------
 .DS_Store
-
-# Secrets (if any)
-.gcp/
-*.json
-*.p12
-*.zip
-
