@@ -1,0 +1,14 @@
+environment              = "dev"
+project_id               = "YOUR_PROJECT_ID"
+region                   = "us-west1"
+tf_state_bucket          = "YOUR_TFSTATE_BUCKET"
+tf_state_prefix          = "dev/gcp-serverless-data-pipeline"
+repo_name                = "gcp-data-pipeline"
+bucket_name              = "YOUR_INGESTION_BUCKET"
+
+cloud_function_name      = "trigger-fastapi"
+cloud_function_entry_point = "trigger_pipeline"
+cloud_function_bucket    = "YOUR_INGESTION_BUCKET"
+cloud_function_region    = "us-west1"
+source_dir               = "functions_src"
+

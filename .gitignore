@@ -26,6 +26,9 @@ uv.lock
 *.tfstate.*
 crash.log
 crash.*.log
+# Terraform variable files (keep templates, ignore real env configs)
+*.tfvars
+!*.tfvars.example
 
 # -------------------------
 # Cloud / credentials
