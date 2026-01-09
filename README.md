@@ -18,11 +18,15 @@ Designed as a portfolio project, it emphasizes practical cloud architecture conc
 - 🏗️ **Infrastructure as Code**
   - Modular Terraform configuration
   - Remote backend with GCS for state management
-- 🚀 **CI/CD**
-  - Cloud Build pipeline for automatic deployments
-- 📊 **Logging & Monitoring**
-  - Stackdriver logging enabled
-  - Uptime checks configured
+
+## 📦 Planned Enhancements
+These enhancements are intentionally deferred to keep the initial design focused on core data flow and infrastructure boundaries.
+
+- 🚀 **Deployment automation**
+  - Add Cloud Build triggers for automated infrastructure and service deployments
+- 📊 **Observability**
+  - Integrate Cloud Logging and Cloud Monitoring dashboards
+  - Add uptime checks for critical endpoints
 
 ---
 
@@ -33,8 +37,6 @@ Designed as a portfolio project, it emphasizes practical cloud architecture conc
   - Cloud Run Functions (Python)
   - BigQuery
   - IAM
-  - Cloud Build
-  - Stackdriver (Logging & Monitoring)
 - **Terraform** (modular setup with GCS remote backend)
 - **Python** for serverless data transformation
 
@@ -44,14 +46,14 @@ Designed as a portfolio project, it emphasizes practical cloud architecture conc
 
 [Client Uploads CSV] → [Cloud Storage Bucket] → [Cloud Function (ETL)]
 ↓
-[Processed Data in BigQuery] → [Analytics Dashboards]
+[Processed Data in BigQuery] → [Downstream Analytics / BI Tools]
 
 
-- Cloud Storage bucket acts as an ingestion point for CSVs.
-- Cloud Function is triggered on upload:
+ Cloud Storage bucket acts as an ingestion point for CSV uploads.
+- Cloud Run Function is triggered on object creation:
   - Validates and transforms data.
   - Loads processed data into BigQuery.
-- Stackdriver logs events and errors for observability.
+- The pipeline is designed to be stateless and event-driven, with IAM-scoped service accounts and no long-lived credentials.
 
 ---
 
@@ -65,24 +67,18 @@ Designed as a portfolio project, it emphasizes practical cloud architecture conc
 
 ### Clone Repository
 ```bash
-git clone https://github.com/<your-username>/gcp-serverless-data-pipeline.git
+git clone https://github.com/moondial-pal/gcp-serverless-data-pipeline.git
 cd gcp-serverless-data-pipeline
 ```
-```bash
 Initialize Terraform
-```
 ```Bash
 terraform init
 ```
-```Bash
 Deploy Infrastructure
-```
 ```Bash
 terraform apply
 ```
-```Bash
 Deploy Cloud Function
-```
 ```Bash
 gcloud functions deploy process_csv \
   --runtime python310 \
