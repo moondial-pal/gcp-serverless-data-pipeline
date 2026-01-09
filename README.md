@@ -1,8 +1,8 @@
 # GCP Serverless Data Pipeline
 
-This project demonstrates a serverless data pipeline on Google Cloud Platform (GCP) using **Terraform** for Infrastructure as Code (IaC). It processes CSV datasets uploaded by teams, applies basic transformations, and loads the results into **BigQuery** for analytics dashboards.  
+This project implements a serverless data pipeline on Google Cloud Platform (GCP) using Terraform-based Infrastructure as Code. The system ingests CSV datasets uploaded to Cloud Storage, triggers event-driven processing, applies lightweight transformations, and loads structured results into BigQuery for downstream analytics.
 
-Designed as a hands-on lab and portfolio project, it showcases GCP architecture best practices for cost efficiency, security, and scalability.
+Designed as a portfolio project, it emphasizes practical cloud architecture concerns including cost efficiency, least-privilege IAM, scalability, and operational simplicity.
 
 ---
 
@@ -30,7 +30,7 @@ Designed as a hands-on lab and portfolio project, it showcases GCP architecture 
 
 - **Google Cloud Platform (GCP)**
   - Cloud Storage
-  - Cloud Functions (Python)
+  - Cloud Run Functions (Python)
   - BigQuery
   - IAM
   - Cloud Build
